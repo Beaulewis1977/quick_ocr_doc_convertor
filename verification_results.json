@@ -1,6 +1,6 @@
 {
   "File Structure": {
-    "universal_document_converter_ocr.py": {
+    "universal_document_converter.py": {
       "success": true,
       "message": "Found"
     },
@@ -38,103 +38,15 @@
     }
   },
   "Python Syntax": {
-    "./build_all_platforms.py": {
+    "./test_unified_app.py": {
       "success": true,
       "message": "Valid"
     },
-    "./cli.py": {
+    "./verify_fixes.py": {
       "success": true,
       "message": "Valid"
     },
-    "./cli_ocr.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./convert_recursive.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./convert_to_markdown.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./create_desktop_shortcut.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./create_executable.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./create_icon.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./create_installer.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./create_simple_installer.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./create_windows_installer.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./demo_system_tray.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./direct_launch.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./document_converter_gui.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./enhanced_system_tray.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./fix_tesseract_config.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./gui_ocr.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./install_converter.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./install_ocr_dependencies.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./install_requirements.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./main_app.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./ocr_engine.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./ocr_engine_fixed.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./ocr_gui_integration.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./run_app.py": {
+    "./run_benchmarks.py": {
       "success": true,
       "message": "Valid"
     },
@@ -142,11 +54,11 @@
       "success": true,
       "message": "Valid"
     },
-    "./setup_ocr.py": {
+    "./create_icon.py": {
       "success": true,
       "message": "Valid"
     },
-    "./setup_ocr_environment.py": {
+    "./update_dependencies_secure.py": {
       "success": true,
       "message": "Valid"
     },
@@ -154,7 +66,7 @@
       "success": true,
       "message": "Valid"
     },
-    "./simple_gui.py": {
+    "./test_ocr_fix.py": {
       "success": true,
       "message": "Valid"
     },
@@ -162,23 +74,31 @@
       "success": true,
       "message": "Valid"
     },
-    "./test_all_fixes.py": {
+    "./install_ocr_dependencies.py": {
       "success": true,
       "message": "Valid"
     },
-    "./test_converter.py": {
+    "./test_gui_dll_integration.py": {
       "success": true,
       "message": "Valid"
     },
-    "./test_cross_platform.py": {
+    "./setup_ocr.py": {
       "success": true,
       "message": "Valid"
     },
-    "./test_gui.py": {
+    "./create_installer.py": {
       "success": true,
       "message": "Valid"
     },
-    "./test_ocr_fix.py": {
+    "./direct_launch.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./thread_pool_manager_full.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./create_executable.py": {
       "success": true,
       "message": "Valid"
     },
@@ -186,27 +106,7 @@
       "success": true,
       "message": "Valid"
     },
-    "./test_ocr_integration.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./test_tesseract_fix.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./test_unified_app.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./universal_document_converter.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./universal_document_converter_enhanced.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./universal_document_converter_ocr.py": {
+    "./verify_code_structure.py": {
       "success": true,
       "message": "Valid"
     },
@@ -214,7 +114,195 @@
       "success": true,
       "message": "Valid"
     },
-    "./verify_code_structure.py": {
+    "./build_all_platforms.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./ocr_engine.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./launch_ocr.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_dll_integration.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./install_converter.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_gui.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_thread_pool_manager.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./document_converter_gui.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./check_syntax_errors.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_all_fixes.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./update_launchers.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./build_ocr_packages.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./convert_to_markdown.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./gui_ocr.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./convert_recursive.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_main_import.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./syntax_check.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./simple_gui.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./verify_setup.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_tesseract_fix.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./security_scan_dependencies.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_converter.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./create_desktop_shortcut.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./setup_ocr_environment.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_cross_platform.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./demo_system_tray.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./install_requirements.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./run_app.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_ocr_integration.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./test_basic_imports.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./universal_document_converter.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./enhanced_system_tray.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./ocr_engine_fixed.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./setup.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./cli.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./create_windows_installer.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./verify_package_updates.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./create_simple_installer.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./ocr_gui_integration.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./thread_pool_manager.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./config/defaults.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./config/__init__.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./tests/test_integration_legacy.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./tests/test_fixtures.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./tests/test_performance.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./tests/test_integration_main.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./tests/test_base.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./tests/test_security.py": {
       "success": true,
       "message": "Valid"
     },
@@ -226,35 +314,15 @@
       "success": true,
       "message": "Valid"
     },
-    "./build_tools/build_linux.py": {
+    "./ocr_engine/security.py": {
       "success": true,
       "message": "Valid"
     },
-    "./build_tools/build_macos.py": {
+    "./ocr_engine/ocr_integration.py": {
       "success": true,
       "message": "Valid"
     },
-    "./build_tools/build_windows.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./build_tools/__init__.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./cross_platform/linux_integration.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./cross_platform/macos_integration.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./cross_platform/windows_integration.py": {
-      "success": true,
-      "message": "Valid"
-    },
-    "./cross_platform/__init__.py": {
+    "./ocr_engine/ocr_engine_minimal.py": {
       "success": true,
       "message": "Valid"
     },
@@ -262,7 +330,11 @@
       "success": true,
       "message": "Valid"
     },
-    "./ocr_engine/format_detector.py": {
+    "./ocr_engine/ocr_engine.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./ocr_engine/__init__.py": {
       "success": true,
       "message": "Valid"
     },
@@ -274,23 +346,55 @@
       "success": true,
       "message": "Valid"
     },
-    "./ocr_engine/ocr_engine.py": {
+    "./ocr_engine/format_detector.py": {
       "success": true,
       "message": "Valid"
     },
-    "./ocr_engine/ocr_engine_minimal.py": {
+    "./ocr_engine/secure_config.py": {
       "success": true,
       "message": "Valid"
     },
-    "./ocr_engine/ocr_integration.py": {
+    "./legacy_dll_builder/cli_new.py": {
+      "success": false,
+      "message": "invalid syntax (<unknown>, line 478)"
+    },
+    "./legacy_dll_builder/cli.py": {
       "success": true,
       "message": "Valid"
     },
-    "./ocr_engine/security.py": {
+    "./legacy_dll_builder/src/cli.py": {
       "success": true,
       "message": "Valid"
     },
-    "./ocr_engine/__init__.py": {
+    "./legacy_dll_builder/src/commands/integration.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./legacy_dll_builder/src/commands/testing.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./legacy_dll_builder/src/commands/build.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./document_converter/main.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./cross_platform/__init__.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./cross_platform/macos_integration.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./cross_platform/windows_integration.py": {
+      "success": true,
+      "message": "Valid"
+    },
+    "./cross_platform/linux_integration.py": {
       "success": true,
       "message": "Valid"
     }
@@ -306,7 +410,7 @@
     }
   },
   "Classes": {
-    "universal_document_converter_ocr.py::DocumentConverterApp": {
+    "universal_document_converter.py::UniversalDocumentConverter": {
       "success": true,
       "message": "Found"
     },

@@ -84,11 +84,11 @@ class OCREngine:
         self.cache_dir = Path.home() / ".quick_document_convertor" / "ocr_cache"
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         
-        # Initialize OCR backends
-        self._initialize_backends()
-        
         # Thread-local storage for OCR readers
         self._thread_local = threading.local()
+        
+        # Initialize OCR backends (after locks are created)
+        self._initialize_backends()
         
         # Configuration defaults
         self.default_config = {
