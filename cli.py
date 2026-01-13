@@ -13,16 +13,35 @@ import time
 import logging
 from typing import List, Optional
 
-# Import the converter classes
+# Import the converter classes (conditional import)
+CONVERTER_AVAILABLE = False
 try:
     from universal_document_converter import (
         UniversalConverter, FormatDetector, ConverterLogger, ConfigManager,
         DocumentConverterError, UnsupportedFormatError, FileProcessingError
     )
-except ImportError as e:
-    print(f"Error: Could not import converter modules: {e}")
-    print("Make sure universal_document_converter.py is in the same directory.")
-    sys.exit(1)
+    CONVERTER_AVAILABLE = True
+except ImportError:
+    # Defer error until actual conversion is attempted
+    UniversalConverter = None
+    FormatDetector = None
+    ConverterLogger = None
+    ConfigManager = None
+    DocumentConverterError = Exception
+    UnsupportedFormatError = Exception
+    FileProcessingError = Exception
+
+# Import OCR functionality
+try:
+    from ocr_engine.ocr_integration import OCRIntegration
+    from ocr_engine.format_detector import OCRFormatDetector
+    from ocr_engine.config_manager import ConfigManager as OCRConfigManager
+    OCR_AVAILABLE = True
+except ImportError:
+    OCR_AVAILABLE = False
+    OCRIntegration = None
+    OCRFormatDetector = None
+    OCRConfigManager = None
 
 
 class DocumentConverterCLI:
@@ -40,6 +59,21 @@ class DocumentConverterCLI:
         self.logger_instance = ConverterLogger("CLI", log_level)
         self.logger = self.logger_instance.get_logger()
         
+        # Initialize OCR integration if available
+        if OCR_AVAILABLE:
+            try:
+                self.ocr_config_manager = OCRConfigManager()
+                self.ocr_integration = OCRIntegration(logger=self.logger, config_manager=self.ocr_config_manager)
+                self.format_detector = OCRFormatDetector()
+                self.logger.info("OCR functionality initialized")
+            except Exception as e:
+                self.logger.warning(f"OCR initialization failed: {e}")
+                self.ocr_integration = None
+                self.format_detector = None
+        else:
+            self.ocr_integration = None
+            self.format_detector = None
+        
     def create_parser(self) -> argparse.ArgumentParser:
         """Create and configure the argument parser"""
         parser = argparse.ArgumentParser(
@@ -51,10 +85,13 @@ Examples:
   %(prog)s *.txt -o output_dir/ -f markdown          # Convert multiple files
   %(prog)s input_dir/ -o output_dir/ --recursive     # Convert directory recursively
   %(prog)s file.pdf -f auto -t html --workers 8      # Auto-detect input, use 8 threads
+  %(prog)s image.jpg --ocr -o output.txt             # OCR image to text
+  %(prog)s scan.pdf --ocr --ocr-backend tesseract    # OCR PDF with Tesseract
+  %(prog)s *.png --ocr --ocr-language fra -o text/   # OCR images in French
   %(prog)s --list-formats                            # Show supported formats
   %(prog)s --batch config.json                       # Batch conversion from config file
 
-Supported Input Formats:  DOCX, PDF, TXT, HTML, RTF
+Supported Input Formats:  DOCX, PDF, TXT, HTML, RTF, Images (with --ocr)
 Supported Output Formats: Markdown, TXT, HTML, RTF
             """
         )
@@ -82,6 +119,16 @@ Supported Output Formats: Markdown, TXT, HTML, RTF
                           help='Overwrite existing output files')
         parser.add_argument('--workers', type=int, default=None,
                           help='Number of worker threads (default: auto)')
+        
+        # OCR options
+        parser.add_argument('--ocr', action='store_true',
+                          help='Enable OCR processing for image files and PDFs')
+        parser.add_argument('--ocr-backend', choices=['auto', 'tesseract', 'easyocr', 'google_vision'],
+                          default='auto', help='OCR backend to use (default: auto)')
+        parser.add_argument('--ocr-language', default='eng',
+                          help='OCR language code (default: eng)')
+        parser.add_argument('--ocr-preprocess', action='store_true', default=True,
+                          help='Enable OCR preprocessing (default: True)')
         
         # Caching and performance
         parser.add_argument('--no-cache', action='store_true',
@@ -283,9 +330,40 @@ Supported Output Formats: Markdown, TXT, HTML, RTF
             handler.setLevel(numeric_level)
     
     def convert_single_file(self, input_path: Path, output_path: Path, 
-                          from_format: str, to_format: str) -> bool:
-        """Convert a single file"""
+                          from_format: str, to_format: str, enable_ocr: bool = False,
+                          ocr_backend: str = 'auto', ocr_language: str = 'eng') -> bool:
+        """Convert a single file with optional OCR support"""
         try:
+            # Check if OCR should be used for this file
+            if enable_ocr and self.ocr_integration and self.format_detector:
+                file_extension = input_path.suffix.lower()
+                image_extensions = ['.jpg', '.jpeg', '.png', '.tiff', '.tif', '.bmp', '.gif', '.webp']
+                
+                if file_extension in image_extensions or file_extension == '.pdf':
+                    self.logger.info(f"Processing {input_path} with OCR")
+                    
+                    # Configure OCR settings
+                    if ocr_backend != 'auto':
+                        self.ocr_config_manager.set_default_backend(ocr_backend)
+                    if ocr_language != 'eng':
+                        self.ocr_config_manager.set_language(ocr_language)
+                    
+                    try:
+                        # Perform OCR
+                        ocr_result = self.ocr_integration.process_file(str(input_path))
+                        
+                        if ocr_result and 'text' in ocr_result:
+                            # Write OCR result to output file
+                            with open(output_path, 'w', encoding='utf-8') as f:
+                                f.write(ocr_result['text'])
+                            self.logger.info(f"OCR completed for {input_path}")
+                            return True
+                        else:
+                            self.logger.warning(f"OCR failed for {input_path}, falling back to standard conversion")
+                    except Exception as e:
+                        self.logger.warning(f"OCR error for {input_path}: {e}, falling back to standard conversion")
+            
+            # Standard conversion (fallback or non-OCR files)
             self.converter.convert_file(input_path, output_path, from_format, to_format)
             return True
         except (UnsupportedFormatError, FileProcessingError, DocumentConverterError) as e:
@@ -467,7 +545,9 @@ Supported Output Formats: Markdown, TXT, HTML, RTF
                 # Create output directory
                 output_file.parent.mkdir(parents=True, exist_ok=True)
 
-                if self.convert_single_file(input_file, output_file, args.from_format, args.to_format):
+                if self.convert_single_file(input_file, output_file, args.from_format, args.to_format,
+                                           enable_ocr=args.ocr, ocr_backend=args.ocr_backend, 
+                                           ocr_language=args.ocr_language):
                     successful = 1
                     if not args.quiet:
                         print(f"SUCCESS: {input_file.name} -> {output_file.name}")
